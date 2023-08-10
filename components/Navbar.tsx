@@ -23,22 +23,21 @@ export default function Navbar() {
     };
 
     return (
-        <Box sx={{flexGrow: 1}}>
-            <AppBar position="static" sx={{backgroundColor: "white"}}>
+        <Box sx={{flexGrow: 1, mb: 4}}>
+            <AppBar position="static" sx={{backgroundColor: "white", boxShadow: "0 0 5px lightgray"}}>
                 <Toolbar>
                     <Typography variant="h5" component="div" sx={{flexGrow: 1, color: 'black', fontWeight: 'bold'}}>
                         لیست سوالات
                     </Typography>
                     {auth && (
                         <div>
-                            <Button variant="contained" sx={{ml:4, color:"white"}}>سوال جدید</Button>
+                            <Button variant="contained" sx={{ml: 4, color: "white"}}>سوال جدید</Button>
                             <IconButton
                                 size="large"
                                 aria-label="account of current user"
                                 aria-controls="menu-appbar"
                                 aria-haspopup="true"
                                 onClick={handleMenu}
-                                color="black"
                             >
                                 <AccountCircle/>
                             </IconButton>

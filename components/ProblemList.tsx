@@ -4,6 +4,7 @@ import {useQuery} from "@tanstack/react-query";
 import {getProblems} from "@/api/problems";
 import {IProblem} from "@/models/IProblem";
 import ProblemCard from "@/components/ProblemCard";
+import {Container} from "@mui/material";
 
 const ProblemList = () => {
     const {data: problems, error, isLoading} = useQuery<IProblem[], Error>({
@@ -17,11 +18,11 @@ const ProblemList = () => {
     }
 
     return (
-        <div>
+        <Container>
             {problems.map(problem => (
                 <ProblemCard key={problem.id} problem={problem}/>
             ))}
-        </div>
+        </Container>
     )
 }
 

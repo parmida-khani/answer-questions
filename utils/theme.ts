@@ -7,5 +7,4 @@ export const theme = createTheme({
             main: '#27AE60',
         },
     }
-
 });
