@@ -9,9 +9,11 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import {Button} from "@mui/material";
+import CreateProblem from "@/components/createProblem";
 
 export default function Navbar() {
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement | undefined>(null);
+    const [open, setOpen] = React.useState(false);
     const auth = true;
 
     const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
@@ -31,7 +33,11 @@ export default function Navbar() {
                     </Typography>
                     {auth && (
                         <div>
-                            <Button variant="contained" sx={{ml: 4, color: "white"}}>سوال جدید</Button>
+                            <Button variant="contained" sx={{ml: 4, color: "white"}}
+                                    onClick={() => setOpen(true)}>
+                                سوال جدید
+                            </Button>
+                            <CreateProblem open={open} handleClose={() => setOpen(false)}/>
                             <IconButton
                                 size="large"
                                 aria-label="account of current user"

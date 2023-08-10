@@ -4,8 +4,10 @@ import {Inter} from 'next/font/google'
 import React from "react";
 import {ReactQueryProvider} from "@/app/ReactQueryProvider";
 import Navbar from "@/components/Navbar";
-import { ThemeProvider } from '@mui/material/styles';
+import {ThemeProvider} from '@mui/material/styles';
 import {theme} from '@/utils/theme';
+import CssBaseline from '@mui/material/CssBaseline';
+
 
 const inter = Inter({subsets: ['latin']})
 
@@ -22,6 +24,7 @@ export default function RootLayout({
     return (
         <ReactQueryProvider>
             <ThemeProvider theme={theme}>
+                <CssBaseline/>
                 <html lang="fa" dir="rtl">
                 <body className={inter.className}>
                 <Navbar/>
