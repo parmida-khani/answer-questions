@@ -3,6 +3,9 @@ import type {Metadata} from 'next'
 import {Inter} from 'next/font/google'
 import React from "react";
 import {ReactQueryProvider} from "@/app/ReactQueryProvider";
+import Navbar from "@/components/Navbar";
+import { ThemeProvider } from '@mui/material/styles';
+import {theme} from '@/utils/theme';
 
 const inter = Inter({subsets: ['latin']})
 
@@ -18,9 +21,14 @@ export default function RootLayout({
 }) {
     return (
         <ReactQueryProvider>
-            <html lang="fa" dir="rtl">
-            <body className={inter.className}>{children}</body>
-            </html>
+            <ThemeProvider theme={theme}>
+                <html lang="fa" dir="rtl">
+                <body className={inter.className}>
+                <Navbar/>
+                {children}
+                </body>
+                </html>
+            </ThemeProvider>
         </ReactQueryProvider>
     )
 }
