@@ -7,6 +7,9 @@ export const theme = createTheme({
             main: '#27AE60',
         }
     },
-    direction: 'rtl'
+    direction: 'rtl',
+    typography: {
+        fontFamily: 'yekan'
+    },
 
 });

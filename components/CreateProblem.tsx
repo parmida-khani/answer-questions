@@ -20,8 +20,8 @@ export default function CreateProblem({open, handleClose}: { open: boolean, hand
             },
         }}
         >
-            <DialogTitle sx={{fontWeight:'bold'}}>ایجاد سوال جدید</DialogTitle>
-            <DialogContent sx={{backgroundColor:'#F9F9F9'}}>
+            <DialogTitle sx={{fontWeight: 'bold'}}>ایجاد سوال جدید</DialogTitle>
+            <DialogContent sx={{backgroundColor: '#F9F9F9'}}>
                 <Typography my={1}>موضوع</Typography>
                 <TextField
                     autoFocus
@@ -43,9 +43,10 @@ export default function CreateProblem({open, handleClose}: { open: boolean, hand
                     required
                 />
             </DialogContent>
-            <DialogActions sx={{backgroundColor:'#F9F9F9', pb:3, px:2}}>
+            <DialogActions sx={{backgroundColor: '#F9F9F9', pb: 3, px: 2}}>
                 <Button onClick={handleClose}>انصراف</Button>
-                <Button variant="contained" sx={{color:'white'}}>ایجاد سوال</Button>
+                <Button variant="contained" sx={{color: 'white', backgroundColor: '#27AE60 !important'}}>ایجاد
+                    سوال</Button>
             </DialogActions>
         </Dialog>
     );

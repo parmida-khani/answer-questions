@@ -9,7 +9,7 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import {Button} from "@mui/material";
-import CreateProblem from "@/components/createProblem";
+import CreateProblem from "@/components/CreateProblem";
 
 export default function Navbar() {
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement | undefined>(null);
@@ -33,7 +33,7 @@ export default function Navbar() {
                     </Typography>
                     {auth && (
                         <div>
-                            <Button variant="contained" sx={{ml: 4, color: "white"}}
+                            <Button variant="contained" sx={{ml: 4, color: "white", backgroundColor:'#27AE60 !important'}}
                                     onClick={() => setOpen(true)}>
                                 سوال جدید
                             </Button>

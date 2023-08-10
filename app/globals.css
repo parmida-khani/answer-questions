@@ -4,4 +4,15 @@
 
 body {
     background-color: #F5F6F7;
+    font-family: yekan, serif;
+}
+
+@font-face {
+    font-family: "yekan";
+    src: url('../font/yekan.eot');
+    src: url('../font/yekan.eot?#iefix') format('yekan-opentype'),
+    url('../font/yekan.woff') format('woff'),
+    url('../font/yekan.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
 }
