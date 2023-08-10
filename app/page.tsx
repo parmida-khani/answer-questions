@@ -1,7 +1,7 @@
-import Image from 'next/image'
+import ProblemList from "@/components/ProblemList";
 
 export default function Home() {
   return (
-      <div></div>
+      <ProblemList/>
   )
 }

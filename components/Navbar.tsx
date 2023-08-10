@@ -24,7 +24,7 @@ export default function Navbar() {
 
     return (
         <Box sx={{flexGrow: 1}}>
-            <AppBar position="static" sx={{bgcolor: "white"}}>
+            <AppBar position="static" sx={{backgroundColor: "white"}}>
                 <Toolbar>
                     <Typography variant="h5" component="div" sx={{flexGrow: 1, color: 'black', fontWeight: 'bold'}}>
                         لیست سوالات
