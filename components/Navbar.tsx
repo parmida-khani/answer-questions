@@ -28,7 +28,7 @@ export default function Navbar() {
         <Box sx={{flexGrow: 1, mb: 4}}>
             <AppBar position="static" sx={{backgroundColor: "white", boxShadow: "0 0 5px lightgray"}}>
                 <Toolbar>
-                    <Typography variant="h5" component="div" sx={{flexGrow: 1, color: 'black', fontWeight: 'bold'}}>
+                    <Typography variant="h6" component="div" sx={{flexGrow: 1, color: 'black', fontWeight: 'bold'}}>
                         لیست سوالات
                     </Typography>
                     {auth && (

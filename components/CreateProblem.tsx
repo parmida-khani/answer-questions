@@ -44,9 +44,11 @@ export default function CreateProblem({open, handleClose}: { open: boolean, hand
                 />
             </DialogContent>
             <DialogActions sx={{backgroundColor: '#F9F9F9', pb: 3, px: 2}}>
-                <Button onClick={handleClose}>انصراف</Button>
-                <Button variant="contained" sx={{color: 'white', backgroundColor: '#27AE60 !important'}}>ایجاد
-                    سوال</Button>
+                <Button onClick={handleClose} sx={{width: "100px"}}>انصراف</Button>
+                <Button variant="contained"
+                        sx={{color: 'white', backgroundColor: '#27AE60 !important', width: '100px'}}>ایجاد
+                    سوال
+                </Button>
             </DialogActions>
         </Dialog>
     );
