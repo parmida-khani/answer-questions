@@ -30,7 +30,10 @@ export default function ProblemDetails({params}) {
             <Typography variant="h6" sx={{fontWeight: 'bold'}}>پاسخ ها</Typography>
             {answersQuery.isLoading && <h1>Loading...</h1>}
             {answersQuery.isError && <h1>{JSON.stringify(answersQuery.error)}</h1>}
-            {answersQuery.data && <AnswerList answers={answersQuery.data as IAnswer[]}/>}
+            {
+                answersQuery.data &&
+                <AnswerList answers={answersQuery.data as IAnswer[]}/>
+            }
         </Container>
     )
 }

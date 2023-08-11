@@ -7,7 +7,7 @@ export function getProblems(): Promise<IProblem[]> {
         .then(res => res.data)
 }
 
-export function createProblem({title, body}) {
+export function createProblem({title, body}: { title: string, body: string }) {
     const problem = {
         title,
         body,
@@ -20,6 +20,6 @@ export function createProblem({title, body}) {
         .then(res => res.data)
 }
 
-export function getProblem(id): Promise<IProblem>  {
+export function getProblem(id): Promise<IProblem> {
     return axios.get(`http://localhost:8000/problems/${id}`).then(res => res.data)
 }

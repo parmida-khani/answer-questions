@@ -73,6 +73,7 @@ export default function CreateProblem({ open, handleClose }: { open: boolean; ha
                     error={isTitleEmpty}
                     helperText={isTitleEmpty ? 'لطفا موضوع را وارد کنید' : ''}
                     onChange={() => setIsTitleEmpty(false)}
+                    placeholder="مشکل در اجرای کد"
                 />
                 <Typography my={2}>متن سوال</Typography>
                 <TextField
@@ -86,6 +87,7 @@ export default function CreateProblem({ open, handleClose }: { open: boolean; ha
                     error={isBodyEmpty}
                     helperText={isBodyEmpty ? 'لطفا متن سوال را وارد کنید' : ''}
                     onChange={() => setIsBodyEmpty(false)}
+                    placeholder="مشکل در اجرای کد"
                 />
             </DialogContent>
             <DialogActions sx={{ backgroundColor: '#F9F9F9', pb: 3, px: 2 }}>
