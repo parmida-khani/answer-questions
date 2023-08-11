@@ -8,6 +8,7 @@ import jalaliMoment from 'jalali-moment';
 import {IAnswer} from "@/models/IAnswer";
 import SentimentSatisfiedAltOutlinedIcon from '@mui/icons-material/SentimentSatisfiedAltOutlined';
 import SentimentDissatisfiedOutlinedIcon from '@mui/icons-material/SentimentDissatisfiedOutlined';
+import LikeAnswer from "@/components/LikeAnswer";
 
 export default function AnswerCard({answer}: { answer: IAnswer }) {
     const isoString = answer.createdTime;
@@ -49,6 +50,7 @@ export default function AnswerCard({answer}: { answer: IAnswer }) {
             <CardContent sx={{backgroundColor: '#F9F9F9'}}>
                 <Typography variant="body2">{answer.body}</Typography>
             </CardContent>
+            <LikeAnswer answer={answer}/>
         </Card>
     );
 }

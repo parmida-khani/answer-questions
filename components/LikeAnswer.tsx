@@ -1,0 +1,38 @@
+import * as React from "react";
+import {Button, CardActions} from "@mui/material";
+import SentimentSatisfiedAltOutlinedIcon from '@mui/icons-material/SentimentSatisfiedAltOutlined';
+import SentimentDissatisfiedOutlinedIcon from '@mui/icons-material/SentimentDissatisfiedOutlined';
+import {IAnswer} from "@/models/IAnswer";
+
+export default function LikeAnswer({answer}: { answer: IAnswer }) {
+    const handleLikeClick = () => {
+        // Handle like click
+    };
+
+    const handleDislikeClick = () => {
+        // Handle dislike click
+    };
+
+    return (
+        <CardActions sx={{backgroundColor: '#F9F9F9', justifyContent: 'end'}}>
+            <Button
+                color="primary"
+                variant="outlined"
+                onClick={handleLikeClick}
+                startIcon={<SentimentSatisfiedAltOutlinedIcon sx={{ml: 1}}/>}
+                sx={{borderRadius: '5px', mb: 1, ml: 1, pr: 1}}
+            >
+                پاسخ خوب بود
+            </Button>
+            <Button
+                color="error"
+                variant="outlined"
+                onClick={handleDislikeClick}
+                startIcon={<SentimentDissatisfiedOutlinedIcon sx={{ml: 1}}/>}
+                sx={{borderRadius: '5px', mb: 1, ml: 1, pr: 1}}
+            >
+                پاسخ خوب نبود
+            </Button>
+        </CardActions>
+    );
+}
