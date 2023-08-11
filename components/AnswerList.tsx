@@ -8,7 +8,7 @@ export default function AnswerList({answers}: { answers: IAnswer[] }) {
             {answers.map(answer =>
                 <AnswerCard key={answer.id} answer={answer}/>
             )}
-            <NewAnswer/>
+            <NewAnswer totalAnswers={answers.length}/>
         </div>
     )
 }

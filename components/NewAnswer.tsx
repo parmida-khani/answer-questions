@@ -1,14 +1,16 @@
 'use client'
 import {Button, TextField, Typography, FormControl, FormHelperText} from "@mui/material";
-import React, {useState} from "react";
+import React, {useRef, useState} from "react";
 import {useMutation, useQueryClient} from "@tanstack/react-query";
 import {createAnswer} from "@/api/answers";
 import {useParams} from 'next/navigation';
+import {updateTotalAnswers} from "@/api/problems";
 
-export default function NewAnswer() {
+export default function NewAnswer({totalAnswers}: { totalAnswers: number }) {
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [isEmpty, setIsEmpty] = useState(false);
-    const [input, setInput] = useState<string>('')
+    const [input, setInput] = useState<string>('');
+    const newTotalAnswers = useRef<number>(totalAnswers + 1);
     const params = useParams();
     const problemId = params.id;
 
@@ -16,11 +18,23 @@ export default function NewAnswer() {
     const createAnswerMutation = useMutation({
         mutationFn: createAnswer,
         onSuccess: (data) => {
-            queryClient.setQueryData(['answers', data.id], data);
             void queryClient.invalidateQueries(['answers', problemId], {exact: true});
             setIsSubmitted(false);
             setIsEmpty(false);
             setInput('');
+            updateTotalAnswersMutation.mutate({
+                id: problemId,
+                totalAnswers: newTotalAnswers.current
+            })
+        },
+    });
+
+    const updateTotalAnswersMutation = useMutation({
+        mutationFn: updateTotalAnswers,
+        onSuccess: (data) => {
+            queryClient.setQueryData(['problems', problemId], data)
+            void queryClient.invalidateQueries(['problems']);
+            newTotalAnswers.current++;
         },
     });
 

@@ -23,3 +23,9 @@ export function createProblem({title, body}: { title: string, body: string }) {
 export function getProblem(id): Promise<IProblem> {
     return axios.get(`http://localhost:8000/problems/${id}`).then(res => res.data)
 }
+
+export function updateTotalAnswers({id, totalAnswers}: { id: number, totalAnswers: number }) {
+    return axios
+        .patch(`http://localhost:8000/problems/${id}`, {totalAnswers})
+        .then(res => res.data)
+}
