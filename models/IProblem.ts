@@ -1,8 +1,8 @@
 export interface IProblem {
-    id: number,
+    id: string,
     title: string,
     body: string,
     author: string,
     totalAnswers: number,
-    createdTime: Date
+    createdTime: string
 }

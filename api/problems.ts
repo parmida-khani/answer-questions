@@ -6,3 +6,16 @@ export function getProblems(): Promise<IProblem[]> {
         .get("http://localhost:8000/problems")
         .then(res => res.data)
 }
+
+export function createProblem({title, body}) {
+    const problem = {
+        title,
+        body,
+        author: 'پارمیدا خانی',
+        createdTime: new Date().toISOString(),
+        totalAnswers: 0
+    }
+    return axios
+        .post("http://localhost:8000/problems", problem)
+        .then(res => res.data)
+}
