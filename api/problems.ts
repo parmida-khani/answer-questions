@@ -19,3 +19,7 @@ export function createProblem({title, body}) {
         .post("http://localhost:8000/problems", problem)
         .then(res => res.data)
 }
+
+export function getProblem(id): Promise<IProblem>  {
+    return axios.get(`http://localhost:8000/problems/${id}`).then(res => res.data)
+}
