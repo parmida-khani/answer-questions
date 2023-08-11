@@ -1,5 +1,5 @@
 export interface IProblem {
-    id: string,
+    id: number,
     title: string,
     body: string,
     author: string,

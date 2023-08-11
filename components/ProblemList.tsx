@@ -20,7 +20,7 @@ const ProblemList = () => {
     return (
         <Container>
             {problems.map(problem => (
-                <ProblemCard key={problem.id} problem={problem}/>
+                <ProblemCard key={problem.id} problem={problem} page="problems"/>
             ))}
         </Container>
     )

@@ -1,25 +1,19 @@
-'use client'
 import * as React from 'react';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
-import {Button, CardActions, Box} from '@mui/material';
+import {Box} from '@mui/material';
 import ChatBubbleOutlineOutlinedIcon from '@mui/icons-material/ChatBubbleOutlineOutlined';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import {IProblem} from '@/models/IProblem';
 import jalaliMoment from 'jalali-moment';
-import { useRouter } from 'next/navigation';
+import ShowDetails from "@/components/ShowDetails";
 
 
-export default function ProblemCard({problem}: { problem: IProblem }) {
-    const router = useRouter();
+export default function ProblemCard({problem, page}: { problem: IProblem, page: string }) {
     const isoString = problem.createdTime;
     const time = jalaliMoment(isoString).format('HH:mm');
     const date = jalaliMoment(isoString).format('jYYYY/jMM/jDD');
-
-    const handleButtonClick = () => {
-        router.push(`details/${problem.id}`);
-    };
 
     return (
         <Card sx={{width: '100%', my: 2, borderRadius: '5px', boxShadow: '0 0 5px lightgray'}}>
@@ -52,12 +46,7 @@ export default function ProblemCard({problem}: { problem: IProblem }) {
             <CardContent sx={{backgroundColor: '#F9F9F9'}}>
                 <Typography variant="body2">{problem.body}</Typography>
             </CardContent>
-            <CardActions sx={{backgroundColor: '#F9F9F9', justifyContent: 'end'}}>
-                <Button color="primary" variant="outlined" onClick={handleButtonClick}
-                        sx={{borderRadius: '5px', mb: 1, ml: 1}}>
-                    مشاهده جزییات
-                </Button>
-            </CardActions>
+            {page === 'problems' && <ShowDetails id={problem.id}/>}
         </Card>
     );
 }
