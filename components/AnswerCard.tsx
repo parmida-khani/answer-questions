@@ -2,7 +2,7 @@ import * as React from 'react';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
-import {Box} from '@mui/material';
+import {Box, Hidden} from '@mui/material';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import jalaliMoment from 'jalali-moment';
 import {IAnswer} from "@/models/IAnswer";
@@ -25,18 +25,20 @@ export default function AnswerCard({answer}: { answer: IAnswer }) {
                     </Typography>
                 </Box>
                 <Box sx={{display: 'flex', alignItems: 'center', marginTop: '8px'}}>
-                    <Typography variant="body2" color="textSecondary" sx={{ml: 0.5}}>
-                        ساعت:
-                    </Typography>
-                    <Typography variant="body2" color="textSecondary" sx={{ml: 2}}>
-                        {time}
-                    </Typography>
-                    <Typography variant="body2" color="textSecondary" sx={{ml: 0.5}}>
-                        تاریخ:
-                    </Typography>
-                    <Typography variant="body2" color="textSecondary" sx={{ml: 2}}>
-                        {date}
-                    </Typography>
+                    <Hidden smDown>
+                        <Typography variant="body2" color="textSecondary" sx={{ml: 0.5}}>
+                            ساعت:
+                        </Typography>
+                        <Typography variant="body2" color="textSecondary" sx={{ml: 2}}>
+                            {time}
+                        </Typography>
+                        <Typography variant="body2" color="textSecondary" sx={{ml: 0.5}}>
+                            تاریخ:
+                        </Typography>
+                        <Typography variant="body2" color="textSecondary" sx={{ml: 2}}>
+                            {date}
+                        </Typography>
+                    </Hidden>
                     <SentimentSatisfiedAltOutlinedIcon fontSize="small"/>
                     <Typography variant="body2" color="textSecondary" sx={{mr: 0.5}}>
                         {answer.numOfLikes}
