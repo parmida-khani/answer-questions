@@ -27,7 +27,7 @@ export default function ProblemDetails({params}) {
     return (
         <Container>
             {problemQuery?.data && <ProblemCard problem={problemQuery?.data as IProblem} page="details"/>}
-            <Typography variant="body1" sx={{fontWeight: 'bold'}}>پاسخ ها</Typography>
+            <Typography variant="h6" sx={{fontWeight: 'bold'}}>پاسخ ها</Typography>
             {answersQuery.isLoading && <h1>Loading...</h1>}
             {answersQuery.isError && <h1>{JSON.stringify(answersQuery.error)}</h1>}
             {answersQuery.data && <AnswerList answers={answersQuery.data as IAnswer[]}/>}
