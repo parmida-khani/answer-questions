@@ -9,6 +9,7 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 import CreateDialog from '@/components/CreateDialog';
 import {usePathname} from 'next/navigation'
 import {Hidden} from "@mui/material";
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 
 export default function Navbar() {
     const pathname = usePathname();
@@ -23,12 +24,15 @@ export default function Navbar() {
             aria-label="account of current user"
             aria-controls="menu-appbar"
             aria-haspopup="true"
+            sx={{p: 0}}
         >
-            <AccountCircle/>
+            <AccountCircle sx={{ml: 1}}/>
+            <Hidden smDown>
+                <Typography variant="body2" sx={{ml: 1}}>{username}</Typography>
+            </Hidden>
+            <ArrowDropDownIcon/>
         </IconButton>
-        <Hidden smDown>
-            <Typography variant="body2">{username}</Typography>
-        </Hidden>
+
     </>
 
     return (
