@@ -8,7 +8,7 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import jalaliMoment from 'jalali-moment';
 import {IAnswer} from "@/models/IAnswer";
 import LikeDislikeActions from "@/components/LikeDislikeActions";
-import {useMutation} from "@tanstack/react-query";
+import {useMutation, useQueryClient} from "@tanstack/react-query";
 import {updateLikedDislikedUsers} from "@/api/answers";
 import {useState} from "react";
 import DateTime from "@/components/DateTime";
@@ -22,9 +22,11 @@ export default function AnswerCard({answer}: { answer: IAnswer }) {
     const date = jalaliMoment(isoString).format('jYYYY/jMM/jDD');
     const userId = 1;
 
+    const queryClient = useQueryClient();
     const updateLikesDislikesMutation = useMutation({
         mutationFn: updateLikedDislikedUsers,
         onSuccess: (data) => {
+            void queryClient.invalidateQueries(['answers']);
             setLikedUsers([...data.likedUsers]);
             setDislikedUsers([...data.dislikedUsers]);
         },
