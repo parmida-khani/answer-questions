@@ -17,10 +17,8 @@ export async function createAnswer({body, problemId}: { body: string, problemId:
         likedUsers: [],
         dislikedUsers: [],
     };
-
     const response = await axios.post(`${API_URL}/answers`, answer);
     return response.data;
-
 }
 
 export async function updateLikedDislikedUsers({
@@ -30,5 +28,4 @@ export async function updateLikedDislikedUsers({
                                                }: { id: number; likedUsers: number[]; dislikedUsers: number[] }) {
     const response = await axios.patch(`${API_URL}/answers/${id}`, {likedUsers, dislikedUsers});
     return response.data;
-
 }
