@@ -1,4 +1,3 @@
-'use client'
 import React, {useRef, useState} from 'react';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
@@ -9,14 +8,15 @@ import DialogTitle from '@mui/material/DialogTitle';
 import {Typography} from '@mui/material';
 import {useMutation, useQueryClient} from '@tanstack/react-query';
 import {createProblem} from '@/api/problems';
-import Error from "@/utils/Error";
+import Error from '@/utils/Error';
 
 export default function CreateProblem({open, handleClose}: { open: boolean; handleClose: Function }) {
-    const titleRef = useRef<HTMLInputElement | null>(null);
-    const bodyRef = useRef<HTMLTextAreaElement | null>(null);
-
-    const [isTitleEmpty, setIsTitleEmpty] = useState(false);
-    const [isBodyEmpty, setIsBodyEmpty] = useState(false);
+    const [formState, setFormState] = useState({
+        isTitleEmpty: false,
+        isBodyEmpty: false,
+        title: '',
+        body: '',
+    });
 
     const queryClient = useQueryClient();
     const createProblemMutation = useMutation({
@@ -29,25 +29,29 @@ export default function CreateProblem({open, handleClose}: { open: boolean; hand
     });
 
     function handleCancel() {
-        setIsTitleEmpty(false);
-        setIsBodyEmpty(false);
+        setFormState({
+            isTitleEmpty: false,
+            isBodyEmpty: false,
+            title: '',
+            body: '',
+        });
         createProblemMutation.reset();
         handleClose();
     }
 
     function handleSubmit(e: React.FormEvent) {
         e.preventDefault();
-        if (!titleRef.current?.value) {
-            setIsTitleEmpty(true);
+        if (!formState.title) {
+            setFormState({...formState, isTitleEmpty: true});
             return;
         }
-        if (!bodyRef.current?.value) {
-            setIsBodyEmpty(true);
+        if (!formState.body) {
+            setFormState({...formState, isBodyEmpty: true});
             return;
         }
         createProblemMutation.mutate({
-            title: titleRef.current?.value,
-            body: bodyRef.current?.value,
+            title: formState.title,
+            body: formState.body,
         });
     }
 
@@ -65,8 +69,7 @@ export default function CreateProblem({open, handleClose}: { open: boolean; hand
             }}
         >
             <DialogTitle sx={{fontWeight: 'bold'}}>ایجاد سوال جدید</DialogTitle>
-            {createProblemMutation.isError &&
-                <Error message={JSON.stringify(createProblemMutation.error)}/>}
+            {createProblemMutation.isError && <Error message={JSON.stringify(createProblemMutation.error)}/>}
             <DialogContent sx={{backgroundColor: '#F9F9F9'}}>
                 <Typography my={1}>موضوع</Typography>
                 <TextField
@@ -77,11 +80,11 @@ export default function CreateProblem({open, handleClose}: { open: boolean; hand
                     type="text"
                     fullWidth
                     variant="outlined"
-                    inputRef={titleRef}
+                    value={formState.title}
                     required
-                    error={isTitleEmpty}
-                    helperText={isTitleEmpty ? 'لطفا موضوع را وارد کنید' : ''}
-                    onChange={() => setIsTitleEmpty(false)}
+                    error={formState.isTitleEmpty}
+                    helperText={formState.isTitleEmpty ? 'لطفا موضوع را وارد کنید' : ''}
+                    onChange={(e) => setFormState({...formState, title: e.target.value, isTitleEmpty: false})}
                     placeholder="مشکل در اجرای کد"
                 />
                 <Typography my={2}>متن سوال</Typography>
@@ -91,11 +94,11 @@ export default function CreateProblem({open, handleClose}: { open: boolean; hand
                     multiline
                     rows={5}
                     fullWidth
-                    inputRef={bodyRef}
+                    value={formState.body}
                     required
-                    error={isBodyEmpty}
-                    helperText={isBodyEmpty ? 'لطفا متن سوال را وارد کنید' : ''}
-                    onChange={() => setIsBodyEmpty(false)}
+                    error={formState.isBodyEmpty}
+                    helperText={formState.isBodyEmpty ? 'لطفا متن سوال را وارد کنید' : ''}
+                    onChange={(e) => setFormState({...formState, body: e.target.value, isBodyEmpty: false})}
                     placeholder="مشکل در اجرای کد"
                 />
             </DialogContent>
@@ -106,7 +109,7 @@ export default function CreateProblem({open, handleClose}: { open: boolean; hand
                 <Button
                     variant="contained"
                     onClick={handleSubmit}
-                    disabled={createProblemMutation.isLoading || isTitleEmpty || isBodyEmpty}
+                    disabled={createProblemMutation.isLoading || formState.isTitleEmpty || formState.isBodyEmpty}
                     sx={{color: 'white', backgroundColor: '#27AE60 !important', width: '100px'}}
                 >
                     {createProblemMutation.isLoading ? 'درحال ایجاد' : 'ایجاد سوال'}

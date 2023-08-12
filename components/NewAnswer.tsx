@@ -11,8 +11,7 @@ export default function NewAnswer({totalAnswers}: { totalAnswers: number }) {
     const [isEmpty, setIsEmpty] = useState(false);
     const [input, setInput] = useState<string>('');
     const newTotalAnswers = useRef<number>(totalAnswers + 1);
-    const params = useParams();
-    const problemId = params.id;
+    const {id: problemId} = useParams();
 
     const queryClient = useQueryClient();
     const createAnswerMutation = useMutation({
@@ -26,6 +25,7 @@ export default function NewAnswer({totalAnswers}: { totalAnswers: number }) {
                 id: problemId,
                 totalAnswers: newTotalAnswers.current
             })
+            createAnswerMutation.reset();
         },
     });
 
@@ -51,6 +51,14 @@ export default function NewAnswer({totalAnswers}: { totalAnswers: number }) {
         });
     };
 
+    const emptyTextHelper = (
+        <FormHelperText
+            sx={{textAlign: 'right', position: 'absolute', bottom: '-25px', right: 0}}
+        >
+            لطفاً متن پاسخ را وارد کنید
+        </FormHelperText>
+    );
+
     return (
         <div>
             <Typography variant="h6" sx={{fontWeight: 'bold', mt: 4}}>پاسخ خود را ثبت کنید</Typography>
@@ -65,11 +73,7 @@ export default function NewAnswer({totalAnswers}: { totalAnswers: number }) {
                         disabled={isSubmitted}
                         placeholder="متن پاسخ..."
                     />
-                    {isEmpty && (
-                        <FormHelperText sx={{textAlign: 'right', position: 'absolute', bottom: '-25px', right: 0}}>
-                            لطفا موضوع را وارد کنید
-                        </FormHelperText>
-                    )}
+                    {isEmpty && emptyTextHelper}
                 </FormControl>
                 <Button
                     type="submit"

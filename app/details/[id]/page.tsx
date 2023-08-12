@@ -31,7 +31,7 @@ export default function ProblemDetails({params}) {
             {problemQuery?.data && <ProblemCard problem={problemQuery?.data as IProblem} page="details"/>}
             <Typography variant="h6" sx={{fontWeight: 'bold'}}>پاسخ ها</Typography>
             {answersQuery.isLoading && <h1>Loading...</h1>}
-            {answersQuery.isError && <h1>{JSON.stringify(answersQuery.error)}</h1>}
+            {answersQuery.isError && <Error message={JSON.stringify(answersQuery.error)}/>}
             {
                 answersQuery.data &&
                 <AnswerList answers={answersQuery.data as IAnswer[]}/>

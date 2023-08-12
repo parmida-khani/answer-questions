@@ -7,12 +7,12 @@ export default function CreateDialog() {
     const [open, setOpen] = React.useState(false);
 
     return (
-        <div>
+        <>
             <Button variant="contained" sx={{ml: 4, color: "white", backgroundColor: '#27AE60 !important'}}
                     onClick={() => setOpen(true)}>
                 سوال جدید
             </Button>
             <CreateProblem open={open} handleClose={() => setOpen(false)}/>
-        </div>
+        </>
     )
 }
