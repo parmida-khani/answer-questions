@@ -3,7 +3,7 @@ import {Button, CardActions} from "@mui/material";
 import SentimentSatisfiedAltOutlinedIcon from '@mui/icons-material/SentimentSatisfiedAltOutlined';
 import SentimentDissatisfiedOutlinedIcon from '@mui/icons-material/SentimentDissatisfiedOutlined';
 
-export default function LikeAnswer({
+export default function LikeAnswerActions({
                                        onLikeClick,
                                        onDislikeClick
                                    }: { onLikeClick: Function, onDislikeClick: Function }) {

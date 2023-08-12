@@ -33,10 +33,10 @@
       "problemId": 1,
       "author": "علی کیا",
       "createdTime": "2023-08-11T15:59:24.201Z",
-      "likedUsers": [
+      "likedUsers": [],
+      "dislikedUsers": [
         1
-      ],
-      "dislikedUsers": []
+      ]
     },
     {
       "id": 2,
@@ -44,10 +44,10 @@
       "problemId": 1,
       "author": "علی کیا",
       "createdTime": "2023-08-11T15:59:24.201Z",
-      "likedUsers": [],
-      "dislikedUsers": [
+      "likedUsers": [
         1
-      ]
+      ],
+      "dislikedUsers": []
     },
     {
       "id": 3,

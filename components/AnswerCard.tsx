@@ -7,13 +7,12 @@ import {Box, Hidden} from '@mui/material';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import jalaliMoment from 'jalali-moment';
 import {IAnswer} from "@/models/IAnswer";
-import SentimentSatisfiedAltOutlinedIcon from '@mui/icons-material/SentimentSatisfiedAltOutlined';
-import SentimentDissatisfiedOutlinedIcon from '@mui/icons-material/SentimentDissatisfiedOutlined';
-import LikeAnswer from "@/components/LikeAnswer";
+import LikeAnswerActions from "@/components/LikeAnswerActions";
 import {useMutation} from "@tanstack/react-query";
 import {updateDislikedUsers, updateLikedUsers} from "@/api/answers";
 import {useState} from "react";
 import DateTime from "@/components/DateTime";
+import LikeAnswerIcons from "@/components/LikeAnswerIcons";
 
 export default function AnswerCard({answer}: { answer: IAnswer }) {
     const [likedUsers, setLikedUsers] = useState<number[]>([...answer.likedUsers]);
@@ -96,20 +95,13 @@ export default function AnswerCard({answer}: { answer: IAnswer }) {
                     <Hidden smDown>
                         <DateTime date={date} time={time}/>
                     </Hidden>
-                    <SentimentSatisfiedAltOutlinedIcon fontSize="small"/>
-                    <Typography variant="body2" color="textSecondary" sx={{mr: 0.5}}>
-                        {likedUsers.length}
-                    </Typography>
-                    <SentimentDissatisfiedOutlinedIcon fontSize="small" sx={{mr: 1}}/>
-                    <Typography variant="body2" color="textSecondary" sx={{mr: 0.5}}>
-                        {dislikedUsers.length}
-                    </Typography>
+                    <LikeAnswerIcons likedUsers={likedUsers} dislikedUsers={dislikedUsers} userId={userId}/>
                 </Box>
             </CardContent>
             <CardContent sx={{backgroundColor: '#F9F9F9'}}>
                 <Typography variant="body2">{answer.body}</Typography>
             </CardContent>
-            <LikeAnswer onLikeClick={handleLikeClick} onDislikeClick={handleDislikeClick}/>
+            <LikeAnswerActions onLikeClick={handleLikeClick} onDislikeClick={handleDislikeClick}/>
         </Card>
     );
 }
