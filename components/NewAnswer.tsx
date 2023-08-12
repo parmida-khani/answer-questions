@@ -22,7 +22,7 @@ export default function NewAnswer({totalAnswers}: { totalAnswers: number }) {
             setIsEmpty(false);
             setInput('');
             updateTotalAnswersMutation.mutate({
-                id: problemId,
+                id: parseInt(problemId),
                 totalAnswers: newTotalAnswers.current
             })
             createAnswerMutation.reset();
@@ -47,7 +47,7 @@ export default function NewAnswer({totalAnswers}: { totalAnswers: number }) {
         setIsSubmitted(true);
         createAnswerMutation.mutate({
             body: input,
-            problemId: problemId
+            problemId: parseInt(problemId)
         });
     };
 
