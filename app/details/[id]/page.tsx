@@ -10,16 +10,22 @@ import {IAnswer} from "@/models/IAnswer";
 import Loading from "@/utils/loading";
 import Error from "@/utils/Error";
 
-export default function ProblemDetails({params}) {
+interface ProblemDetailsProps {
+    params: {
+        id: string;
+    };
+}
+
+export default function ProblemDetails({params}: ProblemDetailsProps) {
     const problemQuery = useQuery<IProblem, Error>({
         queryKey: ["problems", params?.id],
-        queryFn: () => getProblem(params?.id),
+        queryFn: () => getProblem(parseInt(params.id)),
     });
 
     const answersQuery = useQuery<IAnswer[], Error>({
         queryKey: ["answers", params?.id],
         enabled: problemQuery?.data != null,
-        queryFn: () => getAnswers(params?.id),
+        queryFn: () => getAnswers(parseInt(params.id)),
     });
 
     if (problemQuery.isLoading) return <Loading/>;
