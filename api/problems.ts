@@ -4,12 +4,8 @@ import {IProblem} from '@/models/IProblem';
 const API_URL = 'http://localhost:8000';
 
 export async function getProblems(): Promise<IProblem[]> {
-    try {
-        const response = await axios.get(`${API_URL}/problems`);
-        return response.data;
-    } catch (error) {
-        throw new Error('Error fetching problems');
-    }
+    const response = await axios.get(`${API_URL}/problems`);
+    return response.data;
 }
 
 export async function createProblem({title, body}: { title: string; body: string }) {
