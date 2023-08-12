@@ -1,10 +1,11 @@
 'use client'
-
 import {useQuery} from "@tanstack/react-query";
 import {getProblems} from "@/api/problems";
 import {IProblem} from "@/models/IProblem";
 import ProblemCard from "@/components/ProblemCard";
 import {Container} from "@mui/material";
+import Loading from "@/utils/loading";
+import Error from "@/utils/Error";
 
 const ProblemList = () => {
     const {data: problems, error, isLoading} = useQuery<IProblem[], Error>({
@@ -12,9 +13,9 @@ const ProblemList = () => {
         queryFn: getProblems
     })
 
-    if (isLoading) return <h1>Loading...</h1>
+    if (isLoading) return <Loading/>
     if (error) {
-        return <h1>{JSON.stringify(error)}</h1>
+        return <Error message={JSON.stringify(error)}/>
     }
 
     return (

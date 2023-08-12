@@ -1,16 +1,17 @@
 'use client'
-import React, { useRef, useState } from 'react';
+import React, {useRef, useState} from 'react';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
-import { Typography } from '@mui/material';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { createProblem } from '@/api/problems';
+import {Typography} from '@mui/material';
+import {useMutation, useQueryClient} from '@tanstack/react-query';
+import {createProblem} from '@/api/problems';
+import Error from "@/utils/Error";
 
-export default function CreateProblem({ open, handleClose }: { open: boolean; handleClose: Function }) {
+export default function CreateProblem({open, handleClose}: { open: boolean; handleClose: Function }) {
     const titleRef = useRef<HTMLInputElement | null>(null);
     const bodyRef = useRef<HTMLTextAreaElement | null>(null);
 
@@ -22,10 +23,17 @@ export default function CreateProblem({ open, handleClose }: { open: boolean; ha
         mutationFn: createProblem,
         onSuccess: (data) => {
             queryClient.setQueryData(['problems', data.id], data);
-            void queryClient.invalidateQueries(['problems'], { exact: true });
+            void queryClient.invalidateQueries(['problems'], {exact: true});
             handleClose();
         },
     });
+
+    function handleCancel() {
+        setIsTitleEmpty(false);
+        setIsBodyEmpty(false);
+        createProblemMutation.reset();
+        handleClose();
+    }
 
     function handleSubmit(e: React.FormEvent) {
         e.preventDefault();
@@ -46,7 +54,7 @@ export default function CreateProblem({ open, handleClose }: { open: boolean; ha
     return (
         <Dialog
             open={open}
-            onClose={handleClose}
+            onClose={handleCancel}
             sx={{
                 '& .MuiDialog-container': {
                     '& .MuiPaper-root': {
@@ -56,9 +64,10 @@ export default function CreateProblem({ open, handleClose }: { open: boolean; ha
                 },
             }}
         >
-            <DialogTitle sx={{ fontWeight: 'bold' }}>ایجاد سوال جدید</DialogTitle>
-            {createProblemMutation.isError && JSON.stringify(createProblemMutation.error)}
-            <DialogContent sx={{ backgroundColor: '#F9F9F9' }}>
+            <DialogTitle sx={{fontWeight: 'bold'}}>ایجاد سوال جدید</DialogTitle>
+            {createProblemMutation.isError &&
+                <Error message={JSON.stringify(createProblemMutation.error)}/>}
+            <DialogContent sx={{backgroundColor: '#F9F9F9'}}>
                 <Typography my={1}>موضوع</Typography>
                 <TextField
                     autoFocus
@@ -90,15 +99,15 @@ export default function CreateProblem({ open, handleClose }: { open: boolean; ha
                     placeholder="مشکل در اجرای کد"
                 />
             </DialogContent>
-            <DialogActions sx={{ backgroundColor: '#F9F9F9', pb: 3, px: 2 }}>
-                <Button onClick={handleClose} sx={{ width: '100px' }}>
+            <DialogActions sx={{backgroundColor: '#F9F9F9', pb: 3, px: 2}}>
+                <Button onClick={handleCancel} sx={{width: '100px'}}>
                     انصراف
                 </Button>
                 <Button
                     variant="contained"
                     onClick={handleSubmit}
                     disabled={createProblemMutation.isLoading || isTitleEmpty || isBodyEmpty}
-                    sx={{ color: 'white', backgroundColor: '#27AE60 !important', width: '100px' }}
+                    sx={{color: 'white', backgroundColor: '#27AE60 !important', width: '100px'}}
                 >
                     {createProblemMutation.isLoading ? 'درحال ایجاد' : 'ایجاد سوال'}
                 </Button>

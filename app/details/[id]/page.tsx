@@ -7,6 +7,8 @@ import {IProblem} from "@/models/IProblem";
 import ProblemCard from "@/components/ProblemCard";
 import AnswerList from "@/components/AnswerList";
 import {IAnswer} from "@/models/IAnswer";
+import Loading from "@/utils/loading";
+import Error from "@/utils/Error";
 
 export default function ProblemDetails({params}) {
     const problemQuery = useQuery<IProblem, Error>({
@@ -20,9 +22,9 @@ export default function ProblemDetails({params}) {
         queryFn: () => getAnswers(params?.id),
     })
 
-    if (problemQuery.isLoading) return <h1>Loading...</h1>
+    if (problemQuery.isLoading) return <Loading/>
     if (problemQuery.error) {
-        return <h1>{JSON.stringify(problemQuery.error)}</h1>
+        return <Error message={JSON.stringify(problemQuery.error)}/>
     }
     return (
         <Container>

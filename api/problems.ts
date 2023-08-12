@@ -16,7 +16,7 @@ export function createProblem({title, body}: { title: string, body: string }) {
         totalAnswers: 0
     }
     return axios
-        .post("http://localhost:8000/problems", problem)
+        .post("http://localhost:8000/probdslems", problem)
         .then(res => res.data)
 }
 
