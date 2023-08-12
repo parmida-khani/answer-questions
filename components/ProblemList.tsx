@@ -15,7 +15,7 @@ const ProblemList = () => {
 
     if (isLoading) return <Loading/>
     if (error) {
-        return <Error message={error?.message}/>
+        return <Error message={JSON.stringify(error)}/>
     }
 
     return (

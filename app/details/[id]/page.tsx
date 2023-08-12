@@ -30,7 +30,7 @@ export default function ProblemDetails({params}: ProblemDetailsProps) {
 
     if (problemQuery.isLoading) return <Loading/>;
     if (problemQuery.error) {
-        return <Error message={problemQuery.error.message}/>;
+        return <Error message={JSON.stringify(problemQuery.error)}/>;
     }
     return (
         <Container>
@@ -42,7 +42,7 @@ export default function ProblemDetails({params}: ProblemDetailsProps) {
             </Typography>
             {answersQuery.isLoading && <h1>Loading...</h1>}
             {answersQuery.isError && (
-                <Error message={answersQuery?.error?.message}/>
+                <Error message={JSON.stringify(answersQuery.error)}/>
             )}
             {answersQuery.data && <AnswerList answers={answersQuery.data as IAnswer[]}/>}
         </Container>

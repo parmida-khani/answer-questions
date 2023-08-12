@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { IProblem } from '@/models/IProblem';
+import {IProblem} from '@/models/IProblem';
 
 const API_URL = 'http://localhost:8000';
 
@@ -12,7 +12,7 @@ export async function getProblems(): Promise<IProblem[]> {
     }
 }
 
-export async function createProblem({ title, body }: { title: string; body: string }) {
+export async function createProblem({title, body}: { title: string; body: string }) {
     const problem = {
         title,
         body,
@@ -21,28 +21,19 @@ export async function createProblem({ title, body }: { title: string; body: stri
         totalAnswers: 0,
     };
 
-    try {
-        const response = await axios.post(`${API_URL}/problems`, problem);
-        return response.data;
-    } catch (error) {
-        throw new Error('Error creating problem');
-    }
+    const response = await axios.post(`${API_URL}/problems`, problem);
+    return response.data;
+
 }
 
 export async function getProblem(id: number): Promise<IProblem> {
-    try {
-        const response = await axios.get(`${API_URL}/problems/${id}`);
-        return response.data;
-    } catch (error) {
-        throw new Error('Error fetching problem');
-    }
+    const response = await axios.get(`${API_URL}/problems/${id}`);
+    return response.data;
+
 }
 
-export async function updateTotalAnswers({ id, totalAnswers }: { id: number; totalAnswers: number }) {
-    try {
-        const response = await axios.patch(`${API_URL}/problems/${id}`, { totalAnswers });
-        return response.data;
-    } catch (error) {
-        throw new Error('Error updating total answers');
-    }
+export async function updateTotalAnswers({id, totalAnswers}: { id: number; totalAnswers: number }) {
+    const response = await axios.patch(`${API_URL}/problems/${id}`, {totalAnswers});
+    return response.data;
+
 }
