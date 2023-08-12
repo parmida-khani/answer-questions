@@ -1,31 +1,44 @@
-import axios from "axios"
-import {IAnswer} from "@/models/IAnswer";
+import axios from 'axios';
+import { IAnswer } from '@/models/IAnswer';
 
-export function getAnswers(problemId: number): Promise<IAnswer[]> {
-    return axios.get(`http://localhost:8000/answers?problemId=${problemId}`)
-        .then(res => res.data)
+const API_URL = 'http://localhost:8000';
+
+export async function getAnswers(problemId: number): Promise<IAnswer[]> {
+    try {
+        const response = await axios.get(`${API_URL}/answers?problemId=${problemId}`);
+        return response.data;
+    } catch (error) {
+        throw new Error('Error fetching answers');
+    }
 }
 
-export function createAnswer({body, problemId}: { body: string, problemId: number }) {
+export async function createAnswer({ body, problemId }: { body: string, problemId: number }) {
     const answer = {
         body,
         problemId,
         author: 'علی کیا',
         createdTime: new Date().toISOString(),
         likedUsers: [],
-        dislikedUsers: []
+        dislikedUsers: [],
+    };
+
+    try {
+        const response = await axios.post(`${API_URL}/answers`, answer);
+        return response.data;
+    } catch (error) {
+        throw new Error('Error creating answer');
     }
-    return axios
-        .post("http://localhost:8000/answers", answer)
-        .then(res => res.data)
 }
 
-export function updateLikedDislikedUsers({
-                                             id,
-                                             likedUsers,
-                                             dislikedUsers
-                                         }: { id: number, likedUsers: number[], dislikedUsers: number[] }) {
-    return axios
-        .patch(`http://localhost:8000/answers/${id}`, {likedUsers, dislikedUsers})
-        .then(res => res.data)
+export async function updateLikedDislikedUsers({
+                                                   id,
+                                                   likedUsers,
+                                                   dislikedUsers,
+                                               }: { id: number; likedUsers: number[]; dislikedUsers: number[] }) {
+    try {
+        const response = await axios.patch(`${API_URL}/answers/${id}`, { likedUsers, dislikedUsers });
+        return response.data;
+    } catch (error) {
+        throw new Error('Error updating liked/disliked users');
+    }
 }
