@@ -6,16 +6,17 @@ import ProblemCard from "@/components/ProblemCard";
 import {Container} from "@mui/material";
 import Loading from "@/utils/loading";
 import Error from "@/utils/Error";
+import {AxiosError} from "axios";
 
 const ProblemList = () => {
-    const {data: problems, error, isLoading} = useQuery<IProblem[], Error>({
+    const {data: problems, error, isLoading} = useQuery<IProblem[], AxiosError>({
         queryKey: ["problems"],
         queryFn: getProblems
     })
 
     if (isLoading) return <Loading/>
     if (error) {
-        return <Error message={JSON.stringify(error)}/>
+        return <Error message={JSON.stringify(error?.message)}/>
     }
 
     return (

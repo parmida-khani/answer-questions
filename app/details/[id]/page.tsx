@@ -9,6 +9,7 @@ import AnswerList from "@/components/AnswerList";
 import {IAnswer} from "@/models/IAnswer";
 import Loading from "@/utils/loading";
 import Error from "@/utils/Error";
+import {AxiosError} from "axios";
 
 interface ProblemDetailsProps {
     params: {
@@ -17,12 +18,12 @@ interface ProblemDetailsProps {
 }
 
 export default function ProblemDetails({params}: ProblemDetailsProps) {
-    const problemQuery = useQuery<IProblem, Error>({
+    const problemQuery = useQuery<IProblem, AxiosError>({
         queryKey: ["problems", params?.id],
         queryFn: () => getProblem(parseInt(params.id)),
     });
 
-    const answersQuery = useQuery<IAnswer[], Error>({
+    const answersQuery = useQuery<IAnswer[], AxiosError>({
         queryKey: ["answers", params?.id],
         enabled: problemQuery?.data != null,
         queryFn: () => getAnswers(parseInt(params.id)),
@@ -30,7 +31,7 @@ export default function ProblemDetails({params}: ProblemDetailsProps) {
 
     if (problemQuery.isLoading) return <Loading/>;
     if (problemQuery.error) {
-        return <Error message={JSON.stringify(problemQuery.error)}/>;
+        return <Error message={JSON.stringify(problemQuery.error?.message)}/>;
     }
     return (
         <Container>
