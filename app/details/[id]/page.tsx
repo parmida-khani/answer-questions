@@ -42,7 +42,7 @@ export default function ProblemDetails({params}: ProblemDetailsProps) {
             </Typography>
             {answersQuery.isLoading && <h1>Loading...</h1>}
             {answersQuery.isError && (
-                <Error message={answersQuery.error.message}/>
+                <Error message={answersQuery?.error?.message}/>
             )}
             {answersQuery.data && <AnswerList answers={answersQuery.data as IAnswer[]}/>}
         </Container>

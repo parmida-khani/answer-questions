@@ -69,7 +69,7 @@ export default function CreateProblem({open, handleClose}: { open: boolean; hand
             }}
         >
             <DialogTitle sx={{fontWeight: 'bold'}}>ایجاد سوال جدید</DialogTitle>
-            {createProblemMutation.isError && <Error message={createProblemMutation.error.message}/>}
+            {createProblemMutation.isError && <Error message={createProblemMutation?.error?.message}/>}
             <DialogContent sx={{backgroundColor: '#F9F9F9'}}>
                 <Typography my={1}>موضوع</Typography>
                 <TextField
