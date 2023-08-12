@@ -3,12 +3,12 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import {Box, Hidden} from '@mui/material';
-import ChatBubbleOutlineOutlinedIcon from '@mui/icons-material/ChatBubbleOutlineOutlined';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import {IProblem} from '@/models/IProblem';
 import jalaliMoment from 'jalali-moment';
 import ShowDetails from "@/components/ShowDetails";
 import DateTime from "@/components/DateTime";
+import AnswerIcon from "@/components/AnswerIcon";
 
 
 export default function ProblemCard({problem, page}: { problem: IProblem, page: string }) {
@@ -31,10 +31,7 @@ export default function ProblemCard({problem, page}: { problem: IProblem, page: 
                             <DateTime date={date} time={time}/>
                         </Hidden>
                     </Hidden>
-                    <ChatBubbleOutlineOutlinedIcon fontSize="small"/>
-                    <Typography variant="body2" color="textSecondary" sx={{mr: 0.5}}>
-                        {problem.totalAnswers}
-                    </Typography>
+                    <AnswerIcon count={problem.totalAnswers}/>
                 </Box>
             </CardContent>
             <CardContent sx={{backgroundColor: '#F9F9F9'}}>
