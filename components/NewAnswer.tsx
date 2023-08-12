@@ -11,7 +11,7 @@ export default function NewAnswer({totalAnswers}: { totalAnswers: number }) {
     const [isEmpty, setIsEmpty] = useState(false);
     const [input, setInput] = useState<string>('');
     const newTotalAnswers = useRef<number>(totalAnswers + 1);
-    const {id: problemId} = useParams();
+    const problemId: string = useParams().id;
 
     const queryClient = useQueryClient();
     const createAnswerMutation = useMutation({
