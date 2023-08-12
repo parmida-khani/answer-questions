@@ -8,6 +8,7 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import {IProblem} from '@/models/IProblem';
 import jalaliMoment from 'jalali-moment';
 import ShowDetails from "@/components/ShowDetails";
+import DateTime from "@/components/DateTime";
 
 
 export default function ProblemCard({problem, page}: { problem: IProblem, page: string }) {
@@ -26,18 +27,9 @@ export default function ProblemCard({problem, page}: { problem: IProblem, page: 
                 </Box>
                 <Box sx={{display: 'flex', alignItems: 'center', marginTop: '8px'}}>
                     <Hidden smDown>
-                        <Typography variant="body2" color="textSecondary" sx={{ml: 0.5}}>
-                            ساعت:
-                        </Typography>
-                        <Typography variant="body2" color="textSecondary" sx={{ml: 2}}>
-                            {time}
-                        </Typography>
-                        <Typography variant="body2" color="textSecondary" sx={{ml: 0.5}}>
-                            تاریخ:
-                        </Typography>
-                        <Typography variant="body2" color="textSecondary" sx={{ml: 2}}>
-                            {date}
-                        </Typography>
+                        <Hidden smDown>
+                            <DateTime date={date} time={time}/>
+                        </Hidden>
                     </Hidden>
                     <ChatBubbleOutlineOutlinedIcon fontSize="small"/>
                     <Typography variant="body2" color="textSecondary" sx={{mr: 0.5}}>
