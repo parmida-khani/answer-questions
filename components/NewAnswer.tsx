@@ -38,7 +38,7 @@ export default function NewAnswer({totalAnswers}: { totalAnswers: number }) {
         },
     });
 
-    const handleSubmit = (e) => {
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (input === '') {
             setIsEmpty(true);
@@ -69,7 +69,7 @@ export default function NewAnswer({totalAnswers}: { totalAnswers: number }) {
                         multiline
                         rows={5}
                         value={input}
-                        onChange={(e) => setInput(e.target.value)}
+                        onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setInput(e.target.value)}
                         disabled={isSubmitted}
                         placeholder="متن پاسخ..."
                     />
