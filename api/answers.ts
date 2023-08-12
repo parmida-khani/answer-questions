@@ -20,14 +20,12 @@ export function createAnswer({body, problemId}: { body: string, problemId: numbe
         .then(res => res.data)
 }
 
-export function updateLikedUsers({id, likedUsers}: { id: number, likedUsers: number[] }) {
+export function updateLikedDislikedUsers({
+                                             id,
+                                             likedUsers,
+                                             dislikedUsers
+                                         }: { id: number, likedUsers: number[], dislikedUsers: number[] }) {
     return axios
-        .patch(`http://localhost:8000/answers/${id}`, {likedUsers})
-        .then(res => res.data)
-}
-
-export function updateDislikedUsers({id, dislikedUsers}: { id: number, dislikedUsers: number[] }) {
-    return axios
-        .patch(`http://localhost:8000/answers/${id}`, {dislikedUsers})
+        .patch(`http://localhost:8000/answers/${id}`, {likedUsers, dislikedUsers})
         .then(res => res.data)
 }

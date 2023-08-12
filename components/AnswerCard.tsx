@@ -9,7 +9,7 @@ import jalaliMoment from 'jalali-moment';
 import {IAnswer} from "@/models/IAnswer";
 import LikeDislikeActions from "@/components/LikeDislikeActions";
 import {useMutation} from "@tanstack/react-query";
-import {updateDislikedUsers, updateLikedUsers} from "@/api/answers";
+import {updateLikedDislikedUsers} from "@/api/answers";
 import {useState} from "react";
 import DateTime from "@/components/DateTime";
 import LikeDislikeIcons from "@/components/LikeDislikeIcons";
@@ -22,16 +22,10 @@ export default function AnswerCard({answer}: { answer: IAnswer }) {
     const date = jalaliMoment(isoString).format('jYYYY/jMM/jDD');
     const userId = 1;
 
-    const updateLikedUsersMutation = useMutation({
-        mutationFn: updateLikedUsers,
+    const updateLikesDislikesMutation = useMutation({
+        mutationFn: updateLikedDislikedUsers,
         onSuccess: (data) => {
             setLikedUsers([...data.likedUsers]);
-        },
-    });
-
-    const updateDislikedUsersMutation = useMutation({
-        mutationFn: updateDislikedUsers,
-        onSuccess: (data) => {
             setDislikedUsers([...data.dislikedUsers]);
         },
     });
@@ -48,17 +42,19 @@ export default function AnswerCard({answer}: { answer: IAnswer }) {
 
     const handleLikeClick = () => {
         if (likedUsers.includes(userId)) { //user has already liked
-            updateLikedUsersMutation.mutate(
+            updateLikesDislikesMutation.mutate(
                 {
                     id: answer.id,
-                    likedUsers: removeUserFromArray(likedUsers)
+                    likedUsers: removeUserFromArray(likedUsers),
+                    dislikedUsers
                 }
             );
         } else { //user likes now
-            updateLikedUsersMutation.mutate(
+            updateLikesDislikesMutation.mutate(
                 {
                     id: answer.id,
-                    likedUsers: addUserToArray(likedUsers)
+                    likedUsers: addUserToArray(likedUsers),
+                    dislikedUsers: dislikedUsers.includes(userId) ? removeUserFromArray(dislikedUsers) : dislikedUsers
                 }
             );
         }
@@ -66,17 +62,19 @@ export default function AnswerCard({answer}: { answer: IAnswer }) {
 
     const handleDislikeClick = () => {
         if (dislikedUsers.includes(userId)) { //user has already disliked
-            updateDislikedUsersMutation.mutate(
+            updateLikesDislikesMutation.mutate(
                 {
                     id: answer.id,
-                    dislikedUsers: removeUserFromArray(dislikedUsers)
+                    dislikedUsers: removeUserFromArray(dislikedUsers),
+                    likedUsers
                 }
             );
         } else { //user dislikes now
-            updateDislikedUsersMutation.mutate(
+            updateLikesDislikesMutation.mutate(
                 {
                     id: answer.id,
-                    dislikedUsers: addUserToArray(dislikedUsers)
+                    dislikedUsers: addUserToArray(dislikedUsers),
+                    likedUsers: likedUsers.includes(userId) ? removeUserFromArray(likedUsers) : likedUsers
                 }
             );
         }
