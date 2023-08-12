@@ -27,13 +27,16 @@
   ],
   "answers": [
     {
+      "0": 1,
       "id": 1,
       "body": "متغیر env رو داخل فایلت تغییر بده درست میشه",
       "problemId": 1,
       "author": "علی کیا",
       "createdTime": "2023-08-11T15:59:24.201Z",
-      "numOfLikes": 0,
-      "numOfDislikes": 0
+      "likedUsers": [
+        1
+      ],
+      "dislikedUsers": []
     },
     {
       "id": 2,
@@ -41,8 +44,10 @@
       "problemId": 1,
       "author": "علی کیا",
       "createdTime": "2023-08-11T15:59:24.201Z",
-      "numOfLikes": 0,
-      "numOfDislikes": 0
+      "likedUsers": [],
+      "dislikedUsers": [
+        1
+      ]
     },
     {
       "id": 3,
@@ -50,8 +55,18 @@
       "problemId": 2,
       "author": "علی کیا",
       "createdTime": "2023-08-11T15:59:24.201Z",
-      "numOfLikes": 0,
-      "numOfDislikes": 0
+      "likedUsers": [],
+      "dislikedUsers": []
+    }
+  ],
+  "users": [
+    {
+      "id": 1,
+      "name": "پارمیدا خانی"
+    },
+    {
+      "id": 2,
+      "name": "علی کیا"
     }
   ]
 }

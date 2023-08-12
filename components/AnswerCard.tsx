@@ -1,3 +1,4 @@
+'use client'
 import * as React from 'react';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
@@ -9,11 +10,77 @@ import {IAnswer} from "@/models/IAnswer";
 import SentimentSatisfiedAltOutlinedIcon from '@mui/icons-material/SentimentSatisfiedAltOutlined';
 import SentimentDissatisfiedOutlinedIcon from '@mui/icons-material/SentimentDissatisfiedOutlined';
 import LikeAnswer from "@/components/LikeAnswer";
+import {useMutation} from "@tanstack/react-query";
+import {updateDislikedUsers, updateLikedUsers} from "@/api/answers";
+import {useState} from "react";
 
 export default function AnswerCard({answer}: { answer: IAnswer }) {
+    const [likedUsers, setLikedUsers] = useState<number[]>([...answer.likedUsers]);
+    const [dislikedUsers, setDislikedUsers] = useState<number[]>([...answer.dislikedUsers]);
     const isoString = answer.createdTime;
     const time = jalaliMoment(isoString).format('HH:mm');
     const date = jalaliMoment(isoString).format('jYYYY/jMM/jDD');
+    const userId = 1;
+
+    const updateLikedUsersMutation = useMutation({
+        mutationFn: updateLikedUsers,
+        onSuccess: (data) => {
+            setLikedUsers([...data.likedUsers]);
+        },
+    });
+
+    const updateDislikedUsersMutation = useMutation({
+        mutationFn: updateDislikedUsers,
+        onSuccess: (data) => {
+            setDislikedUsers([...data.dislikedUsers]);
+        },
+    });
+
+    const addUserToArray = (array: number[]) => {
+        const newArray: number[] = [...array];
+        newArray.push(userId);
+        return newArray;
+    }
+
+    const removeUserFromArray = (array: number[]) => {
+        return array.filter(userId => userId !== userId);
+    }
+
+    const handleLikeClick = () => {
+        if (likedUsers.includes(userId)) { //user has already liked
+            updateLikedUsersMutation.mutate(
+                {
+                    id: answer.id,
+                    likedUsers: removeUserFromArray(likedUsers)
+                }
+            );
+        } else { //user likes now
+            updateLikedUsersMutation.mutate(
+                {
+                    id: answer.id,
+                    likedUsers: addUserToArray(likedUsers)
+                }
+            );
+        }
+    }
+
+    const handleDislikeClick = () => {
+        if (dislikedUsers.includes(userId)) { //user has already disliked
+            updateDislikedUsersMutation.mutate(
+                {
+                    id: answer.id,
+                    dislikedUsers: removeUserFromArray(dislikedUsers)
+                }
+            );
+        } else { //user dislikes now
+            updateDislikedUsersMutation.mutate(
+                {
+                    id: answer.id,
+                    dislikedUsers: addUserToArray(dislikedUsers)
+                }
+            );
+        }
+    }
 
     return (
         <Card sx={{width: '100%', my: 2, borderRadius: '5px', boxShadow: '0 0 5px lightgray'}}>
@@ -41,18 +108,18 @@ export default function AnswerCard({answer}: { answer: IAnswer }) {
                     </Hidden>
                     <SentimentSatisfiedAltOutlinedIcon fontSize="small"/>
                     <Typography variant="body2" color="textSecondary" sx={{mr: 0.5}}>
-                        {answer.numOfLikes}
+                        {likedUsers.length}
                     </Typography>
                     <SentimentDissatisfiedOutlinedIcon fontSize="small" sx={{mr: 1}}/>
                     <Typography variant="body2" color="textSecondary" sx={{mr: 0.5}}>
-                        {answer.numOfDislikes}
+                        {dislikedUsers.length}
                     </Typography>
                 </Box>
             </CardContent>
             <CardContent sx={{backgroundColor: '#F9F9F9'}}>
                 <Typography variant="body2">{answer.body}</Typography>
             </CardContent>
-            <LikeAnswer answer={answer}/>
+            <LikeAnswer onLikeClick={handleLikeClick} onDislikeClick={handleDislikeClick}/>
         </Card>
     );
 }

@@ -4,6 +4,6 @@ export interface IAnswer {
     author: string,
     body: string,
     createdTime: string,
-    numOfLikes: number,
-    numOfDislikes: number
+    dislikedUsers: number[],
+    likedUsers: number[]
 }
