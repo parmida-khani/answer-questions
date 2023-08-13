@@ -17,7 +17,7 @@ export default function NewAnswer({totalAnswers}: { totalAnswers: number }) {
     const createAnswerMutation = useMutation({
         mutationFn: createAnswer,
         onSuccess: (data) => {
-            void queryClient.invalidateQueries(['answers', problemId], {exact: true});
+            void queryClient.invalidateQueries(['answers', parseInt(problemId)], {exact: true});
             setIsSubmitted(false);
             setIsEmpty(false);
             setInput('');
@@ -32,7 +32,7 @@ export default function NewAnswer({totalAnswers}: { totalAnswers: number }) {
     const updateTotalAnswersMutation = useMutation({
         mutationFn: updateTotalAnswers,
         onSuccess: (data) => {
-            queryClient.setQueryData(['problems', problemId], data)
+            queryClient.setQueryData(['problems', parseInt(problemId)], data)
             void queryClient.invalidateQueries(['problems']);
             newTotalAnswers.current++;
         },

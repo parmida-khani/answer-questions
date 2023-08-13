@@ -19,12 +19,12 @@ interface ProblemDetailsProps {
 
 export default function ProblemDetails({params}: ProblemDetailsProps) {
     const problemQuery = useQuery<IProblem, AxiosError>({
-        queryKey: ["problems", params?.id],
+        queryKey: ["problems", parseInt(params.id)],
         queryFn: () => getProblem(parseInt(params.id)),
     });
 
     const answersQuery = useQuery<IAnswer[], AxiosError>({
-        queryKey: ["answers", params?.id],
+        queryKey: ["answers", parseInt(params.id)],
         enabled: problemQuery?.data != null,
         queryFn: () => getAnswers(parseInt(params.id)),
     });

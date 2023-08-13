@@ -25,7 +25,7 @@ export default function AnswerCard({ answer }: { answer: IAnswer }) {
     const updateLikesDislikesMutation = useMutation({
         mutationFn: updateLikedDislikedUsers,
         onSuccess: (data) => {
-            void queryClient.invalidateQueries(['answers']);
+            void queryClient.invalidateQueries(['answers',answer.problemId]);
             setLikedUsers([...data.likedUsers]);
             setDislikedUsers([...data.dislikedUsers]);
         },

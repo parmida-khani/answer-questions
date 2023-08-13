@@ -27,9 +27,7 @@ export default function ProblemCard({problem, page}: { problem: IProblem, page: 
                 </Box>
                 <Box sx={{display: 'flex', alignItems: 'center', marginTop: '8px'}}>
                     <Hidden smDown>
-                        <Hidden smDown>
                             <DateTime date={date} time={time}/>
-                        </Hidden>
                     </Hidden>
                     <AnswerIcon count={problem.totalAnswers}/>
                 </Box>

@@ -21,7 +21,7 @@ const ProblemList = () => {
 
     return (
         <Container>
-            {problems.map(problem => (
+            {problems?.map(problem => (
                 <ProblemCard key={problem.id} problem={problem} page="problems"/>
             ))}
         </Container>
